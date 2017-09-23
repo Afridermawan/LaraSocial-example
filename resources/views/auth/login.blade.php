@@ -60,6 +60,16 @@
                                 </a>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <a href="{{ route('socialite', 'facebook') }}">facebook</a>
+                                    <a href="{{ route('socialite', 'google') }}">google</a>
+                                    <a href="{{ route('socialite', 'github') }}">github</a>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
