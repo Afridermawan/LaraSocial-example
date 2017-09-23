@@ -31,19 +31,17 @@ class SocialAccountController extends Controller
             ->where('provider_id', $userProvider->getId())
             ->first();
 
-        if ($socialAccount) {
-            return $socialAccount->user;
+        if (!$socialAccount) {
+            $user = User::firstOrCreate(['email' => $userProvider->getEmail()], [
+                'name' => $userProvider->getName(),
+            ]);
+
+            $socialAccount = SocialAccount::create([
+                'user_id' => $user->id,
+                'provider' => $provider,
+                'provider_id' => $userProvider->getId(),
+            ]);
         }
-
-        $user = User::firstOrCreate(['email' => $userProvider->getEmail()], [
-            'name' => $userProvider->getName(),
-        ]);
-
-        $socialAccount = SocialAccount::create([
-            'user_id' => $user->id,
-            'provider' => $provider,
-            'provider_id' => $userProvider->getId(),
-        ]);
 
         return $socialAccount->user;
     }
